@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Базовый</title>
+</head>
+<body>
+<h3>Калькулятор</h3>
+
+<form th:method="PATCH" th:action="@{/api/v1}" th:object="${calculator}">
+    <label for="expr">Введите выражение: </label>
+    <input type="text" th:field="*{expr}" id="expr">
+    <div style="color: red" th:if="${#fields.hasErrors('expr')}" th:errors="*{expr}">Expression error</div>
+    <br/>
+    <label for="result">Результат: </label>
+    <input type="text" th:field="*{result}" id="result" readonly>
+    <br/>
+    <input type="submit" th:value="Расчет">
+</form>
+
+<br/>
+<hr/>
+
+</body>
+</html>
