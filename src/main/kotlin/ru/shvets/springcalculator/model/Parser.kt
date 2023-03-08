@@ -14,7 +14,8 @@ class Parser(_expr: String) {
 
     fun parse(): String {
         val posOperators = mutableListOf<Int>()
-        val pattern: Pattern = Pattern.compile("\\s*(\\s|\\+|-|\\*|/)\\s*")
+//        val pattern: Pattern = Pattern.compile("\\s*(\\s|\\+|-|\\*|/|\\(|\\))\\s*")
+        val pattern: Pattern = Pattern.compile("[\\+|\\-|\\*|/|\\(|\\)]")
 
         val expression = expr.replace("\\s*".toRegex(), "")
         val arrayNumbers = expression.split(pattern)
@@ -26,7 +27,16 @@ class Parser(_expr: String) {
 
         val sb = StringBuilder()
         posOperators.forEachIndexed { index, pos ->
-            sb.append("${arrayNumbers[index]} ${expression.substring(pos, pos + 1)} ")
+            // число
+            if (arrayNumbers[index] == "") {
+                sb.append(arrayNumbers[index])
+            } else {
+                sb.append("${arrayNumbers[index]} ")
+            }
+
+            // арифметическое действие или скобки
+            sb.append("${expression.substring(pos, pos + 1)} ")
+
             if (index == posOperators.size - 1) {
                 sb.append(arrayNumbers[index + 1])
             }

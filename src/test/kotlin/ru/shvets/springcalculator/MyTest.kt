@@ -16,15 +16,15 @@ class MyTest {
     @DisplayName("\uD83D\uDC4D")
     @Test
     fun `Given text with expression, When parsing, Then expect preparing expression to calculate`(){
-        val str: String = " 9   * 2+ 3 - 6* 5+ 12 /  10 -9  / 9  * 1 "
+        val str = " 9   * 2+ 3 - 6* 5+ 12 /  10 -9  / 9  * 1 "
         val parser = Parser(str)
         assertEquals("9 * 2 + 3 - 6 * 5 + 12 / 10 - 9 / 9 * 1", parser.parse())
     }
 
     @DisplayName("\uD83D\uDC4D")
     @Test
-    fun `Given expression 5 plus 2 minus 1, When calculate, Then expect result 6,0`(){
-        val expr: String = "5 + 2 - 1"
+    fun `Given expression only with plus and minus, When calculate, Then expect result 6,0`(){
+        val expr = "5 + 2 - 1"
         val result = 6.0
         val calc = Calc(expr)
         assertEquals(result, calc.calculate())
@@ -32,8 +32,8 @@ class MyTest {
 
     @DisplayName("\uD83D\uDC4D")
     @Test
-    fun `Given expression 5 mul 4 div 3, When calculate, Then expect result 6,67`(){
-        val expr: String = "5 * 4 / 3"
+    fun `Given expression only with multiplication and divide, When calculate, Then expect result 6,67`(){
+        val expr = "5 * 4 / 3"
         val result = 6.67
         val calc = Calc(expr)
         assertEquals(result, calc.calculate())
@@ -41,9 +41,18 @@ class MyTest {
 
     @DisplayName("\uD83D\uDC4D")
     @Test
-    fun `Given expression 5 mul 4 plus 3 div 2 mul 4 minus 1, When calculate, Then expect result 25,0`(){
-        val expr: String = "5 * 4 + 3 / 2 * 4 - 1"
+    fun `Given expression with all arithmetic operations without brackets, When calculate, Then expect result 25,0`(){
+        val expr = "5 * 4 + 3 / 2 * 4 - 1"
         val result = 25.0
+        val calc = Calc(expr)
+        assertEquals(result, calc.calculate())
+    }
+
+    @DisplayName("\uD83D\uDC4D")
+    @Test
+    fun `Given expression with all arithmetic operations wit brackets, When calculate, Then expect result 8,5`(){
+        val expr = "1 + 5 - ( 3 - 2 ) * 2 + 3 * 3 / ( 7 - 5 )"
+        val result = 8.5
         val calc = Calc(expr)
         assertEquals(result, calc.calculate())
     }
